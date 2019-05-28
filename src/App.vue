@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <Signup/>
+    <Signup title='Signup Form'/>
   </div>
 </template>
 
@@ -13,11 +13,6 @@ export default Vue.extend({
   name: 'app',
   components: {
     Signup,
-  },
-  data: () => {
-    return {
-      title: 'Signup Form',
-    };
   },
 });
 </script>
