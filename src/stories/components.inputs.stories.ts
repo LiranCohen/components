@@ -1,13 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { storiesOf } from '@storybook/vue';
+import { SixColumns } from './components.decorators.stories';
+
 import TextInput from '../components/TextInput.vue';
-import PasswordInput from '../components/PasswordInput.vue';
-import '../plugins/bootstrap-vue';
 
-let passwordErrorText = '';
 
-storiesOf('Components/Inputs', module)
-  .add('Default Text Input', () => ({
+storiesOf('Components/Inputs/TextInput', module)
+  .addDecorator(SixColumns)
+  .add('Default', () => ({
     components: { TextInput },
     data: () => {
       return {
@@ -16,9 +16,9 @@ storiesOf('Components/Inputs', module)
         },
       };
     },
-    template: '<div class="container" style="margin-top:20px"><div class="row justify-content-center"><div class="col-md-6"><TextInput v-bind="data"/></div></div></div>',
+    template: '<TextInput v-bind="data"/>',
   }))
-  .add('Text Input with Label', () => ({
+  .add('w/ Label', () => ({
     components: { TextInput },
     data: () => {
       return {
@@ -27,9 +27,9 @@ storiesOf('Components/Inputs', module)
         },
       };
     },
-    template: '<div class="container" style="margin-top:20px"><div class="row justify-content-center"><div class="col-md-6"><TextInput v-bind="data">Input Label</TextInput></div></div></div>',
+    template: '<TextInput v-bind="data">Input Label</TextInput>',
   }))
-  .add('Text Input with SmallText', () => ({
+  .add('w/ SmallText', () => ({
     components: { TextInput },
     data: () => {
       return {
@@ -38,15 +38,25 @@ storiesOf('Components/Inputs', module)
         },
       };
     },
-    template: '<div class="container" style="margin-top:20px"><div class="row justify-content-center"><div class="col-md-6"><TextInput v-bind="data"><template v-slot:SmallText>Small text below the input box.</template></TextInput></div></div></div>',
+    template: `<TextInput v-bind="data">
+                    <template v-slot:SmallText>
+                        Small text below the input box.
+                    </template>
+                </TextInput>`,
   }))
-  .add('Password Input', () => ({
-    components: { PasswordInput },
+  .add('w/ Label, SmallText', () => ({
+    components: { TextInput },
     data: () => {
       return {
         data : {
+          placeholder: 'placeholder',
         },
       };
     },
-    template: '<div class="container" style="margin-top:20px"><div class="row justify-content-center"><div class="col-md-6"><PasswordInput v-bind="data"></PasswordInput></div></div></div>',
+    template: `<TextInput v-bind="data">
+                    Input Label
+                    <template v-slot:SmallText>
+                        Small text below the input box.
+                    </template>
+                </TextInput>`,
   }));

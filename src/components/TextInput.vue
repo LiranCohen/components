@@ -8,6 +8,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
+
 import SmallText from './SmallText.vue';
 
 const Props = Vue.extend({

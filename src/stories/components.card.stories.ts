@@ -1,14 +1,23 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { storiesOf } from '@storybook/vue';
+import { SixColumns } from './components.decorators.stories';
+
 import Card from '../components/Card.vue';
 import CardTitle from '../components/CardTitle.vue';
 import ButtonLink from '../components/ButtonLink.vue';
-import '../plugins/bootstrap-vue';
 
-let passwordErrorText = '';
+const loremIpsum = `<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Proin malesuada, eros suscipit venenatis euismod, dolor nisl cursus nulla, a pharetra velit orci ut sem.
+        Quisque eu lacinia nulla, pellentesque imperdiet ex. Donec semper sollicitudin sem in ultrices.
+        Mauris tristique urna leo, et luctus nibh bibendum quis. Nunc ac vulputate velit, vel aliquet ipsum.
+        Quisque tempus lorem nibh, at elementum turpis venenatis in.Sed tortor ligula, sollicitudin at maximus eu, scelerisque id massa.
+        Aenean sodales tellus lectus, eu fermentum dolor tempus ac. Donec in ante sit amet nisl vestibulum tincidunt eu nec augue.
+        Mauris eget nisi id tortor tristique facilisis in vel tellus.</p>`
 
-storiesOf('Components/Card', module)
-  .add('Default Card', () => ({
+
+storiesOf('Components/Containers/Card', module)
+  .addDecorator(SixColumns)
+  .add('Default', () => ({
     components: { Card },
     data: () => {
       return {
@@ -17,17 +26,19 @@ storiesOf('Components/Card', module)
         },
       };
     },
-    template: `<div class="container" style="margin-top:20px"><div class="row justify-content-center"><div class="col-md-6">
+    template: `
       <Card v-bind="data">
         <template v-slot:header>{{ title }}</template>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada, eros suscipit venenatis euismod, dolor nisl cursus nulla, a pharetra velit orci ut sem. Quisque eu lacinia nulla, pellentesque imperdiet ex. Donec semper sollicitudin sem in ultrices. Mauris tristique urna leo, et luctus nibh bibendum quis. Nunc ac vulputate velit, vel aliquet ipsum. Quisque tempus lorem nibh, at elementum turpis venenatis in. Sed tortor ligula, sollicitudin at maximus eu, scelerisque id massa. Aenean sodales tellus lectus, eu fermentum dolor tempus ac. Donec in ante sit amet nisl vestibulum tincidunt eu nec augue. Mauris eget nisi id tortor tristique facilisis in vel tellus.</p>
+        ${loremIpsum}
         <template v-slot:footer>
             <div class="text-center">Card Footer Goes Here</div>
         </template>
-      </Card>
-    </div></div></div>`,
-  }))
-  .add('With Card Title', () => ({
+      </Card>`,
+  }));
+
+  storiesOf('Components/Containers/Card/CardTitle', module)
+  .addDecorator(SixColumns)
+  .add('Default', () => ({
     components: { Card, CardTitle },
     data: () => {
       return {
@@ -36,19 +47,21 @@ storiesOf('Components/Card', module)
         },
       };
     },
-    template: `<div class="container" style="margin-top:20px"><div class="row justify-content-center"><div class="col-md-6">
+    template: `
     <Card v-bind="data">
         <template v-slot:header>
           <CardTitle>{{ title }}</CardTitle>
         </template>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada, eros suscipit venenatis euismod, dolor nisl cursus nulla, a pharetra velit orci ut sem. Quisque eu lacinia nulla, pellentesque imperdiet ex. Donec semper sollicitudin sem in ultrices. Mauris tristique urna leo, et luctus nibh bibendum quis. Nunc ac vulputate velit, vel aliquet ipsum. Quisque tempus lorem nibh, at elementum turpis venenatis in. Sed tortor ligula, sollicitudin at maximus eu, scelerisque id massa. Aenean sodales tellus lectus, eu fermentum dolor tempus ac. Donec in ante sit amet nisl vestibulum tincidunt eu nec augue. Mauris eget nisi id tortor tristique facilisis in vel tellus.</p>
+        ${loremIpsum}
         <template v-slot:footer>
             <div class="text-center">Card Footer Goes Here</div>
         </template>
-      </Card>
-    </div></div></div>`
-  }))
-  .add('With Card Title and Link', () => ({
+      </Card>`,
+  }));
+
+  storiesOf('Components/Containers/Card/CardTitle/BottonLink', module)
+  .addDecorator(SixColumns)
+  .add('Default', () => ({
     components: { Card, CardTitle, ButtonLink },
     data: () => {
       return {
@@ -57,7 +70,7 @@ storiesOf('Components/Card', module)
         },
       };
     },
-    template: `<div class="container" style="margin-top:20px"><div class="row justify-content-center"><div class="col-md-6">
+    template: `
     <Card v-bind="data">
         <template v-slot:header>
           <CardTitle>
@@ -67,10 +80,9 @@ storiesOf('Components/Card', module)
             </template>
           </CardTitle>
         </template>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin malesuada, eros suscipit venenatis euismod, dolor nisl cursus nulla, a pharetra velit orci ut sem. Quisque eu lacinia nulla, pellentesque imperdiet ex. Donec semper sollicitudin sem in ultrices. Mauris tristique urna leo, et luctus nibh bibendum quis. Nunc ac vulputate velit, vel aliquet ipsum. Quisque tempus lorem nibh, at elementum turpis venenatis in. Sed tortor ligula, sollicitudin at maximus eu, scelerisque id massa. Aenean sodales tellus lectus, eu fermentum dolor tempus ac. Donec in ante sit amet nisl vestibulum tincidunt eu nec augue. Mauris eget nisi id tortor tristique facilisis in vel tellus.</p>
+        ${loremIpsum}
         <template v-slot:footer>
             <div class="text-center">Card Footer Goes Here</div>
         </template>
-      </Card>
-    </div></div></div>`
+      </Card>`,
   }));

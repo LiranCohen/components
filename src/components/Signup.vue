@@ -16,7 +16,7 @@
 		        <TextInput id="lastname" placeholder="Smith" class="col">Last name</TextInput>
 	        </div> 
             <TextInput type="email" id="email" placeholder="john@sample.com">Email address<template v-slot:SmallText>We'll never share your email with anyone else.</template></TextInput>
-	        <PasswordInput :validate="validatePassword"></PasswordInput>
+	        <PasswordInput ref="passwordInput" :validatePassword="validatePassword" :validateConfirmPassword="validateConfirmPassword" :passwordMessageText="passwordMessageText"/>
             <Button :submit="submit">Register</Button>
             <SmallText>By clicking the 'Sign Up' button, you confirm that you accept our <br> Terms of use and Privacy Policy.</SmallText>                                          
         </form>
@@ -28,15 +28,17 @@
 </div> <!-- row.//-->
 </template>
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
-import Card from '../Card.vue';
-import CardTitle from '../CardTitle.vue';
-import Button from '../Button.vue';
-import ButtonLink from '../ButtonLink.vue';
-import SmallText from '../SmallText.vue';
-import TextInput from '../TextInput.vue';
-import PasswordInput from '../PasswordInput.vue';
-import User from '../../models/user';
+import Vue from 'vue';
+import Component from 'vue-class-component';;
+
+import Card from './Card.vue';
+import CardTitle from './CardTitle.vue';
+import Button from './Button.vue';
+import ButtonLink from './ButtonLink.vue';
+import SmallText from './SmallText.vue';
+import TextInput from './TextInput.vue';
+import PasswordInput from './PasswordInput.vue';
+import User from '../models/user';
 
 const Props = Vue.extend({
     components: {
@@ -57,43 +59,44 @@ const Props = Vue.extend({
             type: String,
             default: '#',
         },
-        signUp: {
+        submit: {
             type: Function,
             required: true,
         },
-        validate: {
+        validatePassword: {
             type: Function,
             requred: true,
         },
-        passwordError: {
+        validateConfirmPassword: {
             type: Function,
+            required: true,
+        },
+        passwordMessageText: {
+            type: String,
             required: true,
         },
     },
 });
-
 @Component
 export default class Signup extends Props {
-    private password: string = '';
-    private confirmPass: string = '';
     private firstname: string = '';
     private lastname: string = '';
     private email: string = '';
 
-    private user: User = new User(this.firstname, this.lastname, this.email, this.password);
-    private passwordErrorText: string = this.passwordError();
-
-    public validatePassword(password: string): string {
-        if (password.length < 9) {
-            return 'Password is less than nine';
-        }
-        return '';
+    public password(): string {
+        const passwordInput = this.$refs.passwordInput as PasswordInput;
+        return passwordInput.password();
     }
 
-    private submit(event: Event): void {
-        event.preventDefault();
-        return this.signUp(this.user);
+    public confirmPassword(): string {
+        const passwordInput = this.$refs.passwordInput as PasswordInput;
+        return passwordInput.confirmPassword();
     }
+
+    public user(): User {
+        return new User(this.firstname, this.lastname, this.email, this.password());
+    }
+
 }
 
 </script>
